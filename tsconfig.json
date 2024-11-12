@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -26,7 +25,9 @@
     "paths": {
       "@pages/*": ["src/pages/*"],
       "@features/*": ["src/features/*"],
-      "@config/*": ["src/app/config/*"]
+      "@config/*": ["src/app/config/*"],
+      "@store/*": ["src/app/store/*"],
+      "@services/*": ["./src/app/services/*"]
     }
   },
   "include": [
@@ -38,6 +39,5 @@
     "<path-to-your-source>.ts",
     "<path-to-your-source>.tsx"
   ],
-  "files": [],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
