@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 
 import { APP_NAME } from '@config/constants';
-import SignUpForm from '@features/auth/components/SignupForm';
+import SignUpForm from '@features/auth/components/SignUpForm';
 
 export default function SignUpPage() {
   return (
