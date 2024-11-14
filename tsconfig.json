@@ -27,17 +27,10 @@
       "@features/*": ["src/features/*"],
       "@config/*": ["src/app/config/*"],
       "@store/*": ["src/app/store/*"],
-      "@services/*": ["./src/app/services/*"]
+      "@services/*": ["src/app/services/*"],
+      "@hooks/*": ["src/app/hooks/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/**/*.ts",
-    "**/**/*.tsx",
-    "<path-to-your-source>.ts",
-    "<path-to-your-source>.tsx"
-  ],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
