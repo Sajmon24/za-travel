@@ -1,3 +1,9 @@
+import AddTripWizard from '@features/trip/add-trip/components/AddTripWizard';
+
 export default function AddTripPage() {
-  return <div>add-trip</div>;
+  return (
+    <div>
+      <AddTripWizard />
+    </div>
+  );
 }
