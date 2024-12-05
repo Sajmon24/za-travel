@@ -2,7 +2,6 @@ import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
 import { ButtonBase, Stack, TextField, Typography } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers';
 
 import { Colors } from '@config/styles';
 import DateSelectInput from '@features/ui/form/DateSelectInput';
