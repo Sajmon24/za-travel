@@ -86,7 +86,7 @@ export default function Destinations() {
                   margin="normal"
                   required
                   fullWidth
-                  id={`destinations.${index}`}
+                  id={`${destination}.${index}`}
                   label={`Destination ${index + 1}`}
                   helperText={fieldState.error?.message}
                   error={Boolean(fieldState.error)}
