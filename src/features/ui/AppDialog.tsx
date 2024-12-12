@@ -25,7 +25,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onPrimaryButtonClick: () => void;
-  isForm: boolean;
+  isForm?: boolean;
   maxWidth?: number;
   children: React.ReactNode;
 }
