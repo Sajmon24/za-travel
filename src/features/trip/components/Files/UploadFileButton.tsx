@@ -12,12 +12,20 @@ import { Colors } from '@config/styles';
 interface Props {
   mainText: string;
   subText: string;
+  showSubtext: boolean;
+  onClick?: () => void;
   sx?: SxProps<Theme>;
 }
 
-export default function UploadFileButton({ mainText, subText, sx }: Props) {
+export default function UploadFileButton({
+  mainText,
+  subText,
+  showSubtext,
+  onClick,
+  sx,
+}: Props) {
   return (
-    <Box sx={{ width: '100%', height: '100%', ...sx }}>
+    <Box sx={{ width: '100%', height: '100%', ...sx }} onClick={onClick}>
       <ButtonBase
         sx={{
           display: 'flex',
@@ -37,14 +45,16 @@ export default function UploadFileButton({ mainText, subText, sx }: Props) {
         <Typography component="span" variant="body2">
           {mainText}
         </Typography>
-        <Typography
-          component="span"
-          color="text.secondary"
-          variant="caption"
-          sx={{ display: { xs: 'none', md: 'block' } }}
-        >
-          {subText}
-        </Typography>
+        {showSubtext && (
+          <Typography
+            component="span"
+            color="text.secondary"
+            variant="caption"
+            sx={{ display: { xs: 'none', md: 'block' } }}
+          >
+            {subText}
+          </Typography>
+        )}
       </ButtonBase>
     </Box>
   );
