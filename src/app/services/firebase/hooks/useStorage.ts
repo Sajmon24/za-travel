@@ -10,6 +10,7 @@ import { storage } from '../firebase';
 
 interface Props {
   onAllUploadSuccess: (uploadedFiles: TripFile[]) => void;
+  onOneUploadSuccess: (index: number, uploadedFile: TripFile) => void;
 }
 
 interface State {
@@ -32,7 +33,7 @@ const defaultState: State = {
   removingFilePath: null,
 };
 
-export function useStorage({ onAllUploadSuccess }: Props) {
+export function useStorage({ onAllUploadSuccess, onOneUploadSuccess }: Props) {
   const user = useAppSelector(selectUser);
   const { showErrorMessage } = useToast();
   const [state, setState] = useState<State>(defaultState);
@@ -57,6 +58,7 @@ export function useStorage({ onAllUploadSuccess }: Props) {
 
   const uploadFiles = (path: string, files: (DocumentToUpload | null)[]) => {
     setState(defaultState);
+
     files.forEach((file, index) => {
       setState((prev) => ({
         ...prev,
@@ -87,6 +89,7 @@ export function useStorage({ onAllUploadSuccess }: Props) {
             uploadErrors: newErrors,
           };
         });
+
         return;
       }
 
@@ -99,8 +102,6 @@ export function useStorage({ onAllUploadSuccess }: Props) {
       uploadTask.on(
         'state_changed',
         (snapshot) => {
-          // Observe state change events such as progress, pause, and resume
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const newProgress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
@@ -138,6 +139,8 @@ export function useStorage({ onAllUploadSuccess }: Props) {
               fileName: file.fileName,
               storagePath: uploadTask.snapshot.ref.fullPath,
             };
+            onOneUploadSuccess(index, newUploadedFiles[index]);
+
             return {
               ...prevState,
               uploadProgresses: newProgresses,
