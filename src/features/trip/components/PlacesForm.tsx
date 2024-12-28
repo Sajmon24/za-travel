@@ -52,7 +52,7 @@ export default function PlacesForm(props: Props) {
               rules={{ required: 'Please specify the place!' }}
               render={({ field: { ref, ...field } }) => (
                 <InputBase
-                  id={`{place}.${index}`}
+                  id={`${place}.${index}`}
                   inputRef={ref}
                   placeholder="Type here..."
                   inputProps={{ 'aria-label': 'Place Name' }}

@@ -13,6 +13,7 @@ interface Props {
   href?: string;
   endIcon?: React.ReactNode;
   startIcon?: React.ReactNode;
+  disabled?: boolean;
   onClick?: () => void;
   sx?: SxProps<Theme>;
 }
@@ -26,6 +27,7 @@ export default function AppButton({
   href,
   endIcon,
   startIcon,
+  disabled,
   onClick,
   children,
   sx,
@@ -40,6 +42,7 @@ export default function AppButton({
       variant={variant}
       endIcon={endIcon}
       startIcon={startIcon}
+      disabled={disabled}
       onClick={onClick}
       sx={{
         borderRadius: 2,
