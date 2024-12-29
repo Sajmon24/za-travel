@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 
 import { Box, Grid } from '@mui/material';
 
+import ErrorBoundary from '@config/routes/components/ErrorBoundary';
 import LoginBackground from '@features/auth/assets/login-background.png';
 import SignUpBackground from '@features/auth/assets/sign-up-background.png';
 
@@ -10,6 +11,11 @@ import Logo from '../logo/Logo';
 export default function AuthLayout() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
+
+  // This call is needed to cause re-render
+  // when you change the url, so error boundary
+  // from another page also re-renders -> doesn't show old error
+  useLocation();
 
   return (
     <Grid
@@ -63,7 +69,9 @@ export default function AuthLayout() {
           <Box mb={4}>
             <Logo />
           </Box>
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </Box>
       </Grid>
     </Grid>
