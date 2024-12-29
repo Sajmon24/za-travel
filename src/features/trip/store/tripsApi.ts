@@ -14,6 +14,7 @@ export const tripsApi = createApi({
         return { data };
       },
     }),
+
     getTripDetails: builder.query<Trip, string | undefined>({
       queryFn: async (tripId) => {
         const data = await getTripById(tripId);
