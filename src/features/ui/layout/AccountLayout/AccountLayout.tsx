@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -9,6 +9,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 
+import ErrorBoundary from '@config/routes/components/ErrorBoundary';
 import { theme } from '@config/styles';
 import AppIconButton from '@features/ui/AppIconButton';
 import { useBreakpoints } from '@hooks/useBreakpoints';
@@ -86,6 +87,11 @@ export default function AccountLayout() {
       setOpen(!isOpen);
     }
   };
+
+  // This call is needed to cause re-render
+  // when you change the url, so error boundary
+  // from another page also re-renders -> doesn't show old error
+  useLocation();
 
   return (
     <Box
@@ -182,7 +188,9 @@ export default function AccountLayout() {
         }}
       >
         <Toolbar sx={{ display: { md: 'none' }, ...TOOLBAR_STYLES }} />
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </Box>
     </Box>
   );
