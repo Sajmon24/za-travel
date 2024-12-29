@@ -6,7 +6,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { AppRoutes } from '@config/routes';
 import AppButton from '@features/ui/AppButton';
 
-import TravelerImage from '../assets/traveler.png';
+import TravelerImage from '../../assets/traveler.png';
 
 export default function NoTrips() {
   return (
