@@ -185,7 +185,6 @@ export default function AccountLayout() {
             md: 4,
           },
           pb: 4,
-          height: 'fit-content',
         }}
       >
         <Toolbar sx={{ display: { md: 'none' }, ...TOOLBAR_STYLES }} />
