@@ -14,6 +14,15 @@ interface Props {
   endIcon?: React.ReactNode;
   startIcon?: React.ReactNode;
   disabled?: boolean;
+  isSmall?: boolean;
+  color?:
+    | 'inherit'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'error'
+    | 'info'
+    | 'warning';
   onClick?: () => void;
   sx?: SxProps<Theme>;
 }
@@ -28,6 +37,8 @@ export default function AppButton({
   endIcon,
   startIcon,
   disabled,
+  isSmall,
+  color,
   onClick,
   children,
   sx,
@@ -42,13 +53,14 @@ export default function AppButton({
       variant={variant}
       endIcon={endIcon}
       startIcon={startIcon}
+      color={color}
       disabled={disabled}
       onClick={onClick}
       sx={{
         borderRadius: 2,
         height: {
-          xs: variant === 'text' ? 42 : 48,
-          md: variant === 'text' ? 48 : 56,
+          xs: variant === 'text' || isSmall ? 42 : 48,
+          md: variant === 'text' || isSmall ? 48 : 56,
         },
         textTransform: 'none',
         width: fullWidth ? '100%' : 'fit-content',

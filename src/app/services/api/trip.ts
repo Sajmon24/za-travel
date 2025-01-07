@@ -5,6 +5,7 @@ import {
   getDocs,
   query,
   setDoc,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 
@@ -22,10 +23,11 @@ export async function getTrips() {
   );
 
   const querySnapshot = await getDocs(userTripsQuery);
+
   return querySnapshot.docs.map((doc) => doc.data() as Trip);
 }
 
-export async function getTripById(tripId: string) {
+export async function getTripById(tripId?: string) {
   if (!auth.currentUser) {
     throw Error('Looks like you are not-authorized to make this change!');
   }
@@ -53,4 +55,15 @@ export async function addTrip(trip: Trip) {
     ...trip,
     userUid: auth.currentUser.uid,
   });
+}
+
+export async function updateTrip(tripId: string, data: Partial<Trip>) {
+  if (!auth.currentUser) {
+    throw Error('Looks like you are not-authorized to make this change!');
+  }
+
+  const tripRef = doc(firestore, 'trips', tripId);
+  await updateDoc(tripRef, data);
+
+  return true;
 }
