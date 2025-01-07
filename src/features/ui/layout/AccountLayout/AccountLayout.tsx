@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -65,6 +65,7 @@ const StyledDrawer = styled(Drawer, {
 const TOOLBAR_STYLES = { mb: 1, mt: 2 };
 
 export default function AccountLayout() {
+  const location = useLocation();
   const { md, xl } = useBreakpoints();
   const [isOpen, setOpen] = useState(xl);
   const [isClosing, setIsClosing] = useState(false);
@@ -88,10 +89,9 @@ export default function AccountLayout() {
     }
   };
 
-  // This call is needed to cause re-render
-  // when you change the url, so error boundary
-  // from another page also re-renders -> doesn't show old error
-  useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <Box
@@ -185,6 +185,7 @@ export default function AccountLayout() {
             md: 4,
           },
           pb: 4,
+          height: 'fit-content',
         }}
       >
         <Toolbar sx={{ display: { md: 'none' }, ...TOOLBAR_STYLES }} />
