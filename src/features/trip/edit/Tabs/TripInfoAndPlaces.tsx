@@ -123,6 +123,7 @@ export default function TripInfoAndPlaces(props: Props) {
 
 function useTravelInfoForm({ trip, onUpdate }: Props) {
   const { control, watch } = useForm<FormInput>({
+    mode: 'onChange',
     defaultValues: {
       name: trip.name,
       description: trip.description,
