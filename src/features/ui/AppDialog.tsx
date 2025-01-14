@@ -27,6 +27,7 @@ interface Props {
   onPrimaryButtonClick: () => void;
   isForm?: boolean;
   maxWidth?: number;
+  isLoading?: boolean;
   children: React.ReactNode;
 }
 
@@ -38,6 +39,7 @@ export default function AppDialog({
   onPrimaryButtonClick,
   isForm,
   maxWidth,
+  isLoading,
   children,
 }: Props) {
   const { md } = useBreakpoints();
@@ -104,6 +106,7 @@ export default function AppDialog({
             type={isForm ? 'submit' : 'button'}
             fullWidth
             onClick={onPrimaryButtonClick}
+            loading={isLoading}
           >
             {primaryButtonText}
           </AppButton>
