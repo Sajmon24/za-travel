@@ -6,23 +6,32 @@ import { useBreakpoints } from '@hooks/useBreakpoints';
 
 interface Props {
   src?: string | null;
+  onClick?: () => void;
   isRemoving: boolean;
   onRemoveClick: () => void;
   uploadProgress: number | undefined;
+  enableBorders?: boolean;
+  borderColor?: string;
 }
 export default function PhotoCard({
   src,
+  onClick,
   isRemoving,
   onRemoveClick,
   uploadProgress,
+  enableBorders,
+  borderColor,
 }: Props) {
   const { md } = useBreakpoints();
 
   return (
     <Box
+      onClick={onClick}
       sx={{
         position: 'relative',
         borderRadius: 4,
+        border: enableBorders ? 4 : 0,
+        borderColor: borderColor,
         height: '100%',
         width: '100%',
         overflow: 'hidden',
@@ -41,7 +50,10 @@ export default function PhotoCard({
       )}
       <AppIconButton
         aria-label="remove photo"
-        onClick={onRemoveClick}
+        onClick={(event) => {
+          event?.stopPropagation();
+          onRemoveClick();
+        }}
         variant="contained"
         isSmall={!md}
         sx={{
@@ -56,9 +68,9 @@ export default function PhotoCard({
         <CloseIcon fontSize={md ? 'medium' : 'small'} />
       </AppIconButton>
       <Stack
-        href={isRemoving ? '' : (src ?? '#')}
+        href={isRemoving || onClick ? '' : (src ?? '#')}
         component={Link}
-        target={isRemoving ? '_self' : '_blank'}
+        target={isRemoving || onClick ? '_self' : '_blank'}
         rel="noopener noreferrer"
         gap={1}
         sx={{
@@ -71,7 +83,12 @@ export default function PhotoCard({
         <img
           src={src ?? ''}
           alt="custom photo"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            aspectRatio: '1/1',
+          }}
         />
       </Stack>
     </Box>
