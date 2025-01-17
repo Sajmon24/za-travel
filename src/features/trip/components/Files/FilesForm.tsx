@@ -34,7 +34,7 @@ interface Props {
   onChange?: (updatedFiles: TripFile[]) => void;
   SubmitComponent?: React.ReactNode;
   type: 'document' | 'photo';
-  tripId: stringl;
+  tripId: string;
 }
 
 interface FormInput {
