@@ -7,12 +7,12 @@ interface Props {
   onClick?: () => void;
   color: string;
   backgroundColor: string;
-  borderColor: string;
+  borderColor?: string;
   isSmall?: boolean;
   children: React.ReactNode;
 }
 
-export default function CategoryIcon({
+export default function ExpenseCategoryIcon({
   category,
   onClick,
   children,

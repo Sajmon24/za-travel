@@ -18,19 +18,24 @@ import { useBreakpoints } from '@hooks/useBreakpoints';
 
 import { EXPENSE_ICON_BY_CATEGORY } from '../../data';
 import type { Trip } from '../../types';
-import CategoryIcon from './CategoryIcon';
+import CategoryIcon from './ExpenseCategoryIcon';
 
 interface Props {
   expenses: Trip['expenses'];
   onDelete: (expenseId: string) => void;
+  autoScrollOnChange?: boolean;
 }
 
-export default function ExpensesTable({ expenses, onDelete }: Props) {
+export default function ExpensesTable({
+  expenses,
+  onDelete,
+  autoScrollOnChange,
+}: Props) {
   const { md } = useBreakpoints();
   const bottomBoxRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (bottomBoxRef) {
+    if (bottomBoxRef.current && autoScrollOnChange) {
       bottomBoxRef?.current?.scrollIntoView({ behavior: 'smooth' });
     }
   }, [expenses]);
@@ -40,12 +45,13 @@ export default function ExpensesTable({ expenses, onDelete }: Props) {
       <Table aria-label="Expenses Table">
         <TableHead>
           <TableRow>
-            <TableCell>
-              <Typography
-                component="span"
-                variant="subtitle2"
-                sx={{ width: { xs: '45%', md: '25%' } }}
-              >
+            <TableCell
+              sx={{
+                minWidth: { xs: 140, md: 162 },
+                width: { xs: '30%', md: '25%' },
+              }}
+            >
+              <Typography component="span" variant="subtitle2">
                 Category
               </Typography>
             </TableCell>

@@ -6,6 +6,7 @@ interface Props {
   trip: Trip;
   onUpdate: (data: Partial<Trip>) => void;
 }
+
 export default function Photos({ trip, onUpdate }: Props) {
   const onChange = (photos: TripFile[]) => {
     onUpdate({ photos });
