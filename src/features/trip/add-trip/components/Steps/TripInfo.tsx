@@ -37,6 +37,7 @@ interface FormInput {
 export default function TripInfo() {
   const { isOpen, open, close } = useDialog();
   const {
+    tripId,
     handleSubmit,
     control,
     onSubmit,
@@ -174,6 +175,7 @@ export default function TripInfo() {
       />
       <Pagination />
       <PreviewImageDialog
+        tripId={tripId}
         key={previewImageSrc}
         isOpen={isOpen}
         close={close}
@@ -240,5 +242,6 @@ function useTravelInfoForm({
     previewImageSrc,
     onPreviewImageSave,
     onPreviewImageChange,
+    tripId: trip.id,
   };
 }
