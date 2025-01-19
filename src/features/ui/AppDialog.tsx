@@ -21,10 +21,13 @@ const MOBILE_PADDING_Y = 3;
 
 interface Props {
   title: string;
-  primaryButtonText: string;
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
   isOpen: boolean;
   onClose: () => void;
-  onPrimaryButtonClick: () => void;
+  onPrimaryButtonClick?: () => void;
+  onSecondaryButtonClick?: () => void;
+  disableSecondaryButton?: boolean;
   isForm?: boolean;
   maxWidth?: number;
   isLoading?: boolean;
@@ -34,9 +37,12 @@ interface Props {
 export default function AppDialog({
   title,
   primaryButtonText,
+  secondaryButtonText,
   isOpen,
   onClose,
   onPrimaryButtonClick,
+  onSecondaryButtonClick,
+  disableSecondaryButton,
   isForm,
   maxWidth,
   isLoading,
@@ -102,14 +108,27 @@ export default function AppDialog({
             background: 'white',
           }}
         >
-          <AppButton
-            type={isForm ? 'submit' : 'button'}
-            fullWidth
-            onClick={onPrimaryButtonClick}
-            loading={isLoading}
-          >
-            {primaryButtonText}
-          </AppButton>
+          {primaryButtonText && (
+            <AppButton
+              type={isForm ? 'submit' : 'button'}
+              fullWidth
+              onClick={onPrimaryButtonClick}
+              loading={isLoading}
+            >
+              {primaryButtonText}
+            </AppButton>
+          )}
+          {secondaryButtonText && (
+            <AppButton
+              disabled={disableSecondaryButton}
+              variant="outlined"
+              type={isForm ? 'submit' : 'button'}
+              fullWidth
+              onClick={onSecondaryButtonClick}
+            >
+              {secondaryButtonText}
+            </AppButton>
+          )}
         </DialogActions>
       </Box>
     </Dialog>
