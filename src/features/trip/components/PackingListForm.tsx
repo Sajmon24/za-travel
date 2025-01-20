@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import debounce from 'lodash.debounce';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Controller,
   type SubmitHandler,
+  type UseFormWatch,
   useFieldArray,
   useForm,
 } from 'react-hook-form';
@@ -26,8 +28,9 @@ import type { Trip } from '../types';
 
 interface Props {
   defaultPackingLists: Trip['packingLists'];
-  onSubmit: SubmitHandler<FormInput>;
-  SubmitComponent: React.ReactNode;
+  onChange?: (newPackingLists: Trip['packingLists']) => void;
+  onSubmit?: SubmitHandler<FormInput>;
+  SubmitComponent?: React.ReactNode;
 }
 interface FormInput {
   packingLists: Trip['packingLists'];
@@ -48,7 +51,7 @@ export default function PlacesForm(props: Props) {
     <Stack
       component="form"
       noValidate
-      onSubmit={handleSubmit(props.onSubmit)}
+      onSubmit={props.onSubmit ? handleSubmit(props.onSubmit) : undefined}
       sx={{ width: '100%' }}
       gap={3}
     >
@@ -151,7 +154,7 @@ export default function PlacesForm(props: Props) {
     </Stack>
   );
 }
-function usePackingListsForm({ defaultPackingLists }: Props) {
+function usePackingListsForm({ defaultPackingLists, onChange }: Props) {
   const [newListName, setNewListName] = useState('');
   const { watch, handleSubmit, control, setFocus } = useForm<FormInput>({
     defaultValues: {
@@ -235,6 +238,9 @@ function usePackingListsForm({ defaultPackingLists }: Props) {
       setFocus(`packingLists.${packingListIndex}.items.${itemIndex + 1}.text`);
     }
   };
+
+  useWatchChange(watch, onChange);
+
   return {
     handleSubmit,
     control,
@@ -246,4 +252,24 @@ function usePackingListsForm({ defaultPackingLists }: Props) {
     onRemovePackingListClick,
     onNewListInputKeyDown,
   };
+}
+
+function useWatchChange(
+  watch: UseFormWatch<FormInput>,
+  onChange?: (newPackingLists: Trip['packingLists']) => void,
+) {
+  const onUpdateDebounced = useCallback(
+    debounce((data: Trip['packingLists']) => {
+      onChange?.(data);
+    }, 500),
+    [],
+  );
+
+  useEffect(() => {
+    const formUpdateSubscription = watch((newValues) => {
+      onUpdateDebounced(newValues.packingLists as Trip['packingLists']);
+    });
+
+    return () => formUpdateSubscription.unsubscribe();
+  }, [onUpdateDebounced, watch]);
 }

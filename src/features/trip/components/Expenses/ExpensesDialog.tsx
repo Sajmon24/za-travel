@@ -16,7 +16,7 @@ import { useBreakpoints } from '@hooks/useBreakpoints';
 import { EXPENSES_CATEGORIES, EXPENSE_ICON_BY_CATEGORY } from '../../data';
 import type { Expense } from '../../types';
 import { removeTrailingZeros } from '../../utils/removeTrailingZeros';
-import CategoryIcon from './CategoryIcon';
+import ExpenseCategoryIcon from './ExpenseCategoryIcon';
 
 interface Props {
   isOpen: boolean;
@@ -75,7 +75,7 @@ export default function ExpensesDialog(props: Props) {
                   flexDirection="column"
                   key={id}
                 >
-                  <CategoryIcon
+                  <ExpenseCategoryIcon
                     category={category}
                     onClick={() => onCategoryClick(category)}
                     color={iconInfo.color}
@@ -85,7 +85,7 @@ export default function ExpensesDialog(props: Props) {
                     }
                   >
                     {<iconInfo.icon fontSize="large" />}
-                  </CategoryIcon>
+                  </ExpenseCategoryIcon>
                   <Typography variant="subtitle1">{category}</Typography>
                 </Grid>
               );
