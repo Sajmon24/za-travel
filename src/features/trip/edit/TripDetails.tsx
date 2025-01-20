@@ -91,7 +91,7 @@ export default function TripDetails() {
         <AppDialog
           isOpen={isOpen}
           onClose={close}
-          title="Are you sure that you want to delete this document?"
+          title="Are you sure that you want to delete this trip?"
           primaryButtonText="Yes"
           onPrimaryButtonClick={onDeleteTrip}
           secondaryButtonText="No"
