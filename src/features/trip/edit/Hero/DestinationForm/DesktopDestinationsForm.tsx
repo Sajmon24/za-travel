@@ -61,7 +61,7 @@ export default function DesktopDestinationsForm({
                 id="locationFrom"
                 error={Boolean(fieldState.error)}
                 sx={{
-                  width: `${field.value.length}ch`,
+                  width: `${field.value.length + 1}ch`,
                   color: 'white',
                   maxWidth: 150,
                   minWidth: 60,
@@ -116,7 +116,7 @@ export default function DesktopDestinationsForm({
                   id={`${destination}.${index}`}
                   error={Boolean(fieldState.error)}
                   sx={{
-                    width: `${field.value.length}ch`,
+                    width: `${field.value.length + 1}ch`,
                     color: 'white',
                     maxWidth: 150,
                     minWidth: 30,
