@@ -64,6 +64,7 @@ export default function AppButton({
         },
         textTransform: 'none',
         width: fullWidth ? '100%' : 'fit-content',
+        cursor: 'pointer',
         ...sx,
       }}
     >
