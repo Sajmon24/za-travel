@@ -53,7 +53,7 @@ export default function PlacesForm(props: Props) {
       noValidate
       onSubmit={props.onSubmit ? handleSubmit(props.onSubmit) : undefined}
       sx={{ width: '100%' }}
-      gap={3}
+      gap={{ xs: 2, md: 3 }}
     >
       <Stack gap={1}>
         <TextField
@@ -84,7 +84,10 @@ export default function PlacesForm(props: Props) {
             xs={1}
             sx={{
               borderRight: { xs: 'none', md: 1 },
-              borderBottom: { xs: 1, md: 'none' },
+              borderBottom: {
+                xs: packingListIndex === packingLists.length - 1 ? 0 : 1,
+                md: 'none',
+              },
               borderColor: { xs: 'grey.200', md: 'grey.200' },
               pb: { xs: 2, md: 0 },
               px: { md: 2 },
