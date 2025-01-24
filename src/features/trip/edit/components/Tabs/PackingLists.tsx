@@ -1,5 +1,5 @@
-import PackingListForm from '../../components/PackingListForm';
-import type { Trip } from '../../types';
+import PackingListForm from '../../../components/PackingListForm';
+import type { Trip } from '../../../types';
 import ContentCard from './ContentCard';
 
 interface Props {
