@@ -6,11 +6,12 @@ import { Card, Stack, Typography } from '@mui/material';
 import ExpensesTable from '@features/trip/components/Expenses/ExpensesTable';
 import { EXPENSE_ICON_BY_CATEGORY } from '@features/trip/data';
 import AppButton from '@features/ui/AppButton';
+import { useBreakpoints } from '@hooks/useBreakpoints';
 import useDialog from '@hooks/useDialog';
 
-import ExpenseCategoryIcon from '../../components/Expenses/ExpenseCategoryIcon';
-import ExpensesDialog from '../../components/Expenses/ExpensesDialog';
-import type { Expense, ExpenseCategory, Trip } from '../../types';
+import ExpenseCategoryIcon from '../../../components/Expenses/ExpenseCategoryIcon';
+import ExpensesDialog from '../../../components/Expenses/ExpensesDialog';
+import type { Expense, ExpenseCategory, Trip } from '../../../types';
 import ContentCard from './ContentCard';
 
 type ExpenseGroup = {
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export default function Expenses({ trip, onUpdate }: Props) {
+  const { md } = useBreakpoints();
   const { open, close, isOpen } = useDialog();
   const groupedExpenses = useMemo(
     () => getGroupedExpenses(trip.expenses),
@@ -86,7 +88,12 @@ export default function Expenses({ trip, onUpdate }: Props) {
       <ContentCard
         title="Expenses"
         titleElement={
-          <AppButton onClick={open} endIcon={<AddIcon />} variant="outlined">
+          <AppButton
+            onClick={open}
+            endIcon={<AddIcon />}
+            variant="outlined"
+            fullWidth={!md}
+          >
             Add Expense
           </AppButton>
         }
