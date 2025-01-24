@@ -9,9 +9,9 @@ import AppButton from '@features/ui/AppButton';
 import { useBreakpoints } from '@hooks/useBreakpoints';
 import useDialog from '@hooks/useDialog';
 
-import ExpenseCategoryIcon from '../../components/Expenses/ExpenseCategoryIcon';
-import ExpensesDialog from '../../components/Expenses/ExpensesDialog';
-import type { Expense, ExpenseCategory, Trip } from '../../types';
+import ExpenseCategoryIcon from '../../../components/Expenses/ExpenseCategoryIcon';
+import ExpensesDialog from '../../../components/Expenses/ExpensesDialog';
+import type { Expense, ExpenseCategory, Trip } from '../../../types';
 import ContentCard from './ContentCard';
 
 type ExpenseGroup = {
