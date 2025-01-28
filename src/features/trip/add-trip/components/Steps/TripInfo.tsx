@@ -140,6 +140,15 @@ export default function TripInfo() {
               control={control}
               requiredErrorText="Please specify start date!"
               maxDate={formValues.endDate}
+              validate={{
+                startDate: (startDate) =>
+                  !startDate ||
+                  (startDate &&
+                    formValues.endDate &&
+                    startDate < formValues.endDate)
+                    ? undefined
+                    : 'Start date should be before end date!',
+              }}
               fullWidth
             />
             <DateSelectInput
@@ -148,6 +157,15 @@ export default function TripInfo() {
               control={control}
               requiredErrorText="Please specify end date!"
               minDate={formValues.startDate}
+              validate={{
+                endDate: (endDate) =>
+                  !endDate ||
+                  (endDate &&
+                    formValues.startDate &&
+                    formValues.startDate < endDate)
+                    ? undefined
+                    : 'End date should be after start date!',
+              }}
               fullWidth
             />
           </Stack>
