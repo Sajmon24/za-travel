@@ -4,6 +4,8 @@ import {
   doc,
   getDoc,
   getDocs,
+  limit,
+  orderBy,
   query,
   setDoc,
   updateDoc,
@@ -20,12 +22,24 @@ function authenticate<T>(authenticatedFn: () => Promise<T>) {
   return authenticatedFn();
 }
 
-export async function getTrips() {
+export async function getTrips(tripsLimit?: number) {
   return authenticate(async () => {
-    const userTripsQuery = query(
-      collection(firestore, 'trips'),
-      where('userUid', '==', auth.currentUser!.uid),
-    );
+    let userTripsQuery;
+
+    if (tripsLimit) {
+      userTripsQuery = query(
+        collection(firestore, 'trips'),
+        where('userUid', '==', auth.currentUser!.uid),
+        orderBy('startDate', 'desc'),
+        limit(tripsLimit),
+      );
+    } else {
+      userTripsQuery = query(
+        collection(firestore, 'trips'),
+        where('userUid', '==', auth.currentUser!.uid),
+        orderBy('startDate', 'desc'),
+      );
+    }
 
     const querySnapshot = await getDocs(userTripsQuery);
 

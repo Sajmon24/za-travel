@@ -9,9 +9,11 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 
+import { AppRoutes } from '@config/routes';
 import ErrorBoundary from '@config/routes/components/ErrorBoundary';
 import { theme } from '@config/styles';
 import AppIconButton from '@features/ui/AppIconButton';
+import HideOnScroll from '@features/ui/HideOnScroll';
 import { useBreakpoints } from '@hooks/useBreakpoints';
 
 import AccountSidebar from './AccountSidebar';
@@ -66,6 +68,7 @@ const TOOLBAR_STYLES = { mb: 1, mt: 2 };
 
 export default function AccountLayout() {
   const location = useLocation();
+  const isPrimaryNavBackgroundColor = location.pathname === AppRoutes.dashboard;
   const { md, xl } = useBreakpoints();
   const [isOpen, setOpen] = useState(xl);
   const [isClosing, setIsClosing] = useState(false);
@@ -135,21 +138,39 @@ export default function AccountLayout() {
       {/* Mobile Drawer */}
       {!md && (
         <>
-          <AppBar
-            position="fixed"
-            sx={{ boxShadow: 'none', backgroundColor: 'grey.100' }}
-          >
-            <Toolbar sx={TOOLBAR_STYLES}>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-              >
-                <MenuIcon sx={{ color: 'primary.main', fontSize: 40 }} />
-              </IconButton>
-            </Toolbar>
-          </AppBar>
+          <HideOnScroll>
+            <AppBar
+              position="fixed"
+              sx={{
+                boxShadow: 'none',
+                backgroundColor: {
+                  xs: isPrimaryNavBackgroundColor ? 'primary.main' : 'grey.100',
+                  md: 'grey.100',
+                },
+              }}
+            >
+              <Toolbar sx={TOOLBAR_STYLES}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                >
+                  <MenuIcon
+                    sx={{
+                      color: {
+                        xs: isPrimaryNavBackgroundColor
+                          ? 'white'
+                          : 'primary.main',
+                        md: 'primary.main',
+                      },
+                      fontSize: 40,
+                    }}
+                  />
+                </IconButton>
+              </Toolbar>
+            </AppBar>
+          </HideOnScroll>
 
           <Drawer
             variant="temporary"
