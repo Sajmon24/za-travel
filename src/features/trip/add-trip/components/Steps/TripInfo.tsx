@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
 
 import ImageSearchIcon from '@mui/icons-material/ImageSearch';
@@ -251,6 +252,13 @@ function useTravelInfoForm({
     dispatch(setTravelInformation(data));
     dispatch(nextStep());
   };
+
+  useEffect(() => {
+    if (formValues.startDate && formValues.endDate) {
+      trigger('startDate');
+      trigger('endDate');
+    }
+  }, [formValues.startDate, formValues.endDate]);
 
   return {
     handleSubmit,
